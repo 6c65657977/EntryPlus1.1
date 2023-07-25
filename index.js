@@ -1143,10 +1143,11 @@ window.addEventListener("load", () => {
                                 lastTotal = totalNow
                                 lastId = contentsList.list[0].id
                             }else if (lastTotal == contentsList && lastId != contentsList.list[0].id){
-                                for (let m = 1; m < 10; m++){
+                                for (let m = 1; m < 11; m++){
                                     if (lastId != contentsList.list[m].id){
-                                        lastId = contentsList.list[m].id
                                         lastTotal = lastTotal - 1
+                                    }else if(m == 10){
+                                        lastId = contentsList.list[0].id
                                     }else{
                                         break
                                     }
