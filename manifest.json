@@ -1,0 +1,13 @@
+{
+    "name": "EntryPlus",
+    "description": "엔트리 확장프로그램",
+    "version": "1.0",
+    "manifest_version": 3,
+    "content_scripts": [
+      {
+        "matches":["https://playentry.org/*"],
+        "js": ["index.js"],
+        "run_at": "document_start"
+      }
+    ]
+  }
