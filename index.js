@@ -1209,7 +1209,7 @@ window.addEventListener("load", () => {
                                         contentBox.children[0].children[2].textContent = EntryStory[i].content
                                     }
                                     if (EntryStory[i].sticker != null){
-                                        contentBox.children[0].children[3].style.height = ''
+                                        contentBox.children[0].children[3].style.height = '74px'
                                         contentBox.children[0].children[3].style.marginTop = ''
                                         contentBox.children[0].children[3].children[0].style.width = '74px'
                                         contentBox.children[0].children[3].children[0].style.height = '74px'
