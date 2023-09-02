@@ -745,6 +745,8 @@ window.addEventListener("load", () => {
                     userprofile = username
                 }
             }
+        }else{
+            userprofile = ''
         }
     }, 10)
     setInterval(()=> ImageView(), 10)
