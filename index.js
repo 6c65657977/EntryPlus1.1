@@ -613,7 +613,7 @@ window.addEventListener("load", () => {
     userprofile = ''
     setInterval(async function(){
         if (document.location.pathname.split('/')[1] == 'profile'){
-            if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1').length > 0 && userprofile == ''){
+            if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1').length > 0 && userprofile != document.location.pathname.replaceAll('?', '/').split('/')[2]){
                 replay = document.location.pathname.split('/')[2]
                 var getIdeal = function(){
                     var next_data = document.getElementById("__NEXT_DATA__");
@@ -742,7 +742,7 @@ window.addEventListener("load", () => {
                     document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].children[0].firstElementChild.style.color = 'rgb(22, 216, 163)'
                     document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].children[1].firstElementChild.style.color = 'rgb(22, 216, 163)'
                     document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].appendChild(info)
-                    userprofile = username
+                    userprofile = document.location.pathname.replaceAll('?', '/').split('/')[2]
                 }
             }
         }else{
