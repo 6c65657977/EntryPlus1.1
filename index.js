@@ -610,9 +610,10 @@ window.addEventListener("load", () => {
         }
     }, 10)
     replay = ''
+    userprofile = ''
     setInterval(async function(){
         if (document.location.pathname.split('/')[1] == 'profile'){
-            if (document.querySelectorAll('div.css-1n1pekm.e1e59sjh1').length > 0){
+            if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1').length > 0 && userprofile == ''){
                 replay = document.location.pathname.split('/')[2]
                 var getIdeal = function(){
                     var next_data = document.getElementById("__NEXT_DATA__");
@@ -693,8 +694,8 @@ window.addEventListener("load", () => {
                         })
                     })).json()).data.discussList.list[0].user.username + ")"
                 }
-                if (document.querySelectorAll('div.css-1n1pekm.e1e59sjh1')[0].childElementCount > 2){
-                    document.querySelectorAll('div.css-1n1pekm.e1e59sjh1')[0].removeChild(info)
+                if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].childElementCount > 2){
+                    document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].removeChild(info)
                     info.removeChild(project)
                     info.removeChild(qna)
                     info.removeChild(tips)
@@ -737,8 +738,11 @@ window.addEventListener("load", () => {
                 info.appendChild(qna)
                 info.appendChild(tips)
                 info.appendChild(free)
-                if (document.querySelectorAll('div.css-1n1pekm.e1e59sjh1')[0].childElementCount == 2){
-                    document.querySelectorAll('div.css-1n1pekm.e1e59sjh1')[0].appendChild(info)
+                if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].childElementCount == 2){
+                    document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].children[0].firstElementChild.style.color = 'rgb(22, 216, 163)'
+                    document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].children[1].firstElementChild.style.color = 'rgb(22, 216, 163)'
+                    document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].appendChild(info)
+                    userprofile = username
                 }
             }
         }
@@ -1159,7 +1163,7 @@ window.addEventListener("load", () => {
                                 commentBox.innerHTML = `<a class=" css-16djw2l enx4swp0" href="/profile/60f244de5c98d93ba2f04c4d" style="background-image: url(&quot;/uploads/ax/gy/axgy43iblk57wq612gymd7d701ggti85.png&quot;), url(&quot;/img/EmptyImage.svg&quot;);"><span class="blind">유저 썸네일</span></a><div class="css-1t19ptn ee2n3ac3"><a href="/profile/60f244de5c98d93ba2f04c4d">곰순이</a><em>23.07.22 ・ 14:25</em></div><div class="css-sy8ihv e1i41bku1">우무수 굿즈에는 뭐 잇서요?</div><em class="css-18ro4ma e3yf6l20"><img src="/uploads/hw/98/hw98nh3wlbvvkexy0wqaf1cfe4336qeh.svg" alt="sticker" style="width: 74px; height: 74px;"></em><div class="css-1dcwahm e15ke9c50"><em><a role="button" class="like">좋아요 0</a></em></div><div class="css-13q8c66 e12alrlo2"><a href="/" role="button" class=" css-9ktsbr e12alrlo1" style="display: block;"><span class="blind">더보기</span></a><div class="css-17xrkv e12alrlo0"><div class="css-3dlt5k ex7w8381"><ul><li><a>신고하기</a></li></ul><span class="css-1i151d5 ex7w8380"><i>&nbsp;</i></span></div></div></div>`;
                                 contentBox = document.createElement('li')
                                 contentBox.className = 'css-1mswyjj eelonj20';
-                                contentBox.innerHTML = `<div class="css-puqjcw e1877mpo2"><a class=" css-18bdrlk enx4swp0" href="/profile/60a86a00faae0b021e3e9a5e" style="background-image: url(&quot;/uploads/62/3h/623huyril629k7s6000pef2ffffxl1jd.svg&quot;), url(&quot;/img/EmptyImage.svg&quot;);"><span class="blind">유저 썸네일</span></a><div class="css-1t19ptn ee2n3ac3"><a href="/profile/60a86a00faae0b021e3e9a5e">ㅘㅏ</a><em>23.07.22 ・ 13:55</em></div><div class="css-sy8ihv e1i41bku1">(좋아요 부탁!) 고퀄 Five Nights at Freddy's 2 : <a target="_blank" href="https://playentry.org/project/64ad2596dd6bec0025ca15f7" rel="noreferrer">https://playentry.org/project/64ad2596dd6bec0025ca15f7</a></div><em class="css-18ro4ma e1877mpo0"><img src="/uploads/bs/4w/bs4wklnfkm4fphxk003hf51f2b1wjhg3.svg" alt="sticker"></em><div class="css-1dcwahm e15ke9c50"><em><a role="button" class="like">좋아요 0</a></em><em><a role="button" class="reply">댓글 0</a></em></div><div class="css-13q8c66 e12alrlo2"><a href="/" role="button" class=" css-9ktsbr e12alrlo1" style="display: block;"><span class="blind">더보기</span></a><div class="css-17xrkv e12alrlo0"><div class="css-3dlt5k ex7w8381"><ul><li><a>신고하기</a></li></ul><span class="css-1i151d5 ex7w8380"><i>&nbsp;</i></span></div></div></div></div>`;
+                                contentBox.innerHTML = `<div class="css-puqjcw e1877mpo2"><a class=" css-18bdrlk enx4swp0" href="/profile/62d8fcd5365ce20362be915c" style="background-image: url(&quot;/uploads/xl/dd/xlddcfjnlih762t82cbvd7d7010anuhg.png&quot;), url(&quot;/img/EmptyImage.svg&quot;);"><span class="blind">유저 썸네일</span></a><div class="css-1t19ptn ee2n3ac4"><a href="/profile/62d8fcd5365ce20362be915c">dossa</a><em>23.09.02 ・ 11:15</em></div><div class="css-sy8ihv e1i41bku1"><a target="_blank" href="https://playentry.org/project/64f2985e0917e80025748469" rel="noreferrer">https://playentry.org/project/64f2985e0917e80025748469</a> <br>엔트리버젼wii를만들었습니다 좋아요눌러주세요:)<br></div><em class="css-18ro4ma e1877mpo0"><img src="/uploads/7t/r8/7tr88i51lbvvkebp16jaf1cfe43nc71k.svg" alt="sticker"></em><div class="css-1dcwahm e15ke9c50"><em><a role="button" class="like">좋아요 0</a></em><em><a role="button" class="reply">댓글 0</a></em></div><div class="css-13q8c66 e12alrlo2"><a href="/" role="button" class=" css-9ktsbr e12alrlo1" style="display: block;"><span class="blind">더보기</span></a><div class=" css-19v4su1 e12alrlo0"><div class="css-3dlt5k ex7w8381"><ul><li><a>신고하기</a></li></ul><span class="css-p2vmor ex7w8380"><i>&nbsp;</i></span></div></div></div></div>`;
                                 EntryStory = (await (await fetch("https://playentry.org/graphql", {
                                     "headers": {
                                         "Content-Type": "application/json",
