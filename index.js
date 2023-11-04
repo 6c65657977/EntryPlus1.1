@@ -6,12 +6,15 @@ window.addEventListener("load", () => {
             for (let i = start; i < contents.length; i++){
                 start = 0
                 for (let j = 0; j < contents[i].children.length; j++){
-                    if (contents[i].children[j].outerHTML.replace('/𝕡layentry.org/', '/playentry.org/').indexOf('<a target="_blank" href="https://playentry.org/uploads/') == 0 && contents[i].children[j].outerHTML.indexOf('<img ') == -1){
+                    if (contents[i].children[j].outerHTML.replace('/𝕡layentry.org/', '/playentry.org/').replaceAll('%75', 'u').replaceAll('//uploads/', '/uploads/').indexOf('<a target="_blank" href="https://playentry.org/redirect/path=../../?external=https://playentry.org/uploads/') == 0 && contents[i].children[j].outerHTML.indexOf('<img ') == -1){
                         if (contents[i].children[j].outerHTML.indexOf('/signout') >= 0){
                             contents[i].children[j].outerHTML = contents[i].children[j].outerHTML.replaceAll('signout', '')
                         }else{
-                            document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML = '<br><img width=300px; height=auto; src=' + document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML +'> </img></br>'
+                            document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML = '<br><img width=300px; height=auto; src=' + document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML.replaceAll('https://playentry.org/redirect/path=../../?external=', '') +'> </img></br>'
+                            contents[i].children[j].outerHTML = contents[i].children[j].outerHTML.replaceAll('https://playentry.org/redirect/path=../../?external=https://playentry.org/uploads/', 'https://playentry.org/uploads/')
                         }
+                    }else if (contents[i].children[j].outerHTML.replace('/𝕡layentry.org/', '/playentry.org/').replaceAll('%75', 'u').replaceAll('//uploads/', '/uploads/').indexOf('<a target="_blank" href="https://playentry.org/uploads/') == 0 && contents[i].children[j].outerHTML.indexOf('<img ') == -1){
+                        document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML = '<br><img width=300px; height=auto; src=' + document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML.replaceAll('https://playentry.org/redirect/path=../../?external=', '') +'> </img></br>'
                     }
                 }
                 if (document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].outerHTML.replaceAll('&lt;br /&gt;', '\n').indexOf('\n') >= 0){
@@ -149,7 +152,7 @@ window.addEventListener("load", () => {
                     var idl = getIdeal();
                     var csrf = idl.csrf, xtoken = idl.xtoken;
                     if (document.location.href.indexOf("entrystory") >= 0) {
-                        if (confirm("이모티콘 형식으로 업로드하시겠습니까? 취소시 사진으로 업로드")) {
+                        if (false) {
                             await fetch("https://playentry.org/graphql", {
                                     "headers": {
                                         "Content-Type": "application/json",
@@ -205,13 +208,13 @@ window.addEventListener("load", () => {
                                 if(e.target.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes.length > 0){
                                     e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.firstChild.firstChild.remove()
                                 }
-                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
-                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].data = cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
-                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].value = cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
+                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].data = cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
+                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].value = cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].scrollHeight)+'px'
                     }
                     }else if(document.location.href.includes("/group/community/")){
-                        if (confirm("이모티콘 형식으로 업로드하시겠습니까? 취소시 사진으로 업로드")) {
+                        if (false) {
                             var crt = await (async function(cont, id){
                                 var crt = await fetch("https://playentry.org/graphql", {
                                     "headers": {
@@ -242,13 +245,13 @@ window.addEventListener("load", () => {
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes[0])
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].scrollHeight)+'px'
                             }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                            e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                             e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes[0].data
                             e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].scrollHeight)+'px'
                             
                         }
                     }else {
-                        if (confirm("이모티콘 형식으로 업로드하시겠습니까? 취소시 사진으로 업로드")) {
+                        if (false) {
                             var crt = await (async function(cont, id){
                                 var crt = await fetch("https://playentry.org/graphql", {
                                     "headers": {
@@ -277,7 +280,7 @@ window.addEventListener("load", () => {
                             if(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes.length > 0){
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes[0])
                             }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                            e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                             e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes[0].data
                             e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].scrollHeight)+'px'
                         }
@@ -385,7 +388,7 @@ window.addEventListener("load", () => {
                     var idl = getIdeal();
                     var csrf = idl.csrf, xtoken = idl.xtoken;
                     if (document.location.href.indexOf("entrystory") >= 0) {
-                        if (confirm("이모티콘 형식으로 업로드하시겠습니까? 취소시 사진으로 업로드")) {
+                        if (false) {
                         var crt = await (async function(cont, id){
                             var crt = await fetch("https://playentry.org/graphql", {
                                 "headers": {
@@ -412,12 +415,12 @@ window.addEventListener("load", () => {
                             if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                             }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                         }
                     }else if(document.location.href.includes("/group/community/")){
-                        if (confirm("이모티콘 형식으로 업로드하시겠습니까? 취소시 사진으로 업로드")) {
+                        if (false) {
                             var crt = await (async function(cont, id){
                                 var crt = await fetch("https://playentry.org/graphql", {
                                     "headers": {
@@ -447,12 +450,12 @@ window.addEventListener("load", () => {
                             if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                             }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                         }
                     }else {
-                        if (confirm("이모티콘 형식으로 업로드하시겠습니까? 취소시 사진으로 업로드")) {
+                        if (false) {
                             var crt = await (async function(cont, id){
                                 var crt = await fetch("https://playentry.org/graphql", {
                                     "headers": {
@@ -477,13 +480,12 @@ window.addEventListener("load", () => {
                             })(cont, id);
                             location.reload()
                         }else {
-                            cont = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].textContent
-                            if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
-                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
-                            }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
+                            cont = e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].value
+                            // if(e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].childNodes.length > 0){
+                            //     e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].remove(e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].childNodes[0])
+                            // }
+                            e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].value = cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
+                            e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].style.height = String(e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].scrollHeight)+'px'
                         }
                     }
                 })();
@@ -585,7 +587,7 @@ window.addEventListener("load", () => {
                         if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].removeChild(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                         }
-                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                     }else if(document.location.href.includes("/group/community/")){
@@ -593,7 +595,7 @@ window.addEventListener("load", () => {
                         if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].removeChild(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                         }
-                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                     }else {
@@ -601,7 +603,7 @@ window.addEventListener("load", () => {
                         if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].removeChild(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                         }
-                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org/uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                     }
@@ -611,144 +613,144 @@ window.addEventListener("load", () => {
     }, 10)
     replay = ''
     userprofile = ''
-    setInterval(async function(){
-        if (document.location.pathname.split('/')[1] == 'profile'){
-            if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1').length > 0 && userprofile != document.location.pathname.replaceAll('?', '/').split('/')[2]){
-                replay = document.location.pathname.split('/')[2]
-                var getIdeal = function(){
-                    var next_data = document.getElementById("__NEXT_DATA__");
-                    var nj = JSON.parse(next_data.innerText);
-                    return {csrf: nj.props.initialProps.csrfToken, xtoken: nj.props.initialState.common.user.xToken};
-                };
-                idl = getIdeal();
-                csrf = idl.csrf;
-                xtoken = idl.xtoken
-                user_info = (await (await fetch("https://playentry.org/graphql", {
-                    "method": "POST",
-                    "headers":{
-                        "Content-Type": "application/json",
-                        "x-client-type": "Client",
-                        "CSRF-Token": csrf,
-                        "x-token": xtoken
-                    },
-                    "body": JSON.stringify({
-                        "query":"\n    query FIND_USERSTATUS_BY_USERNAME($id: String) {\n        userstatus(id: $id) {\n            id\n            nickname\n            username\n            description\n            shortUrl\n            profileImage {\n                \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n            }\n            coverImage {\n                \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n            }\n            role\n            mark {\n                \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n            }\n            studentTerm\n            status {\n                project\n                projectAll\n                study\n                studyAll\n                community {\n                    qna\n                    tips\n                    free\n                }\n                following\n                follower\n                bookmark {\n                    project\n                    study\n                }\n                userStatus\n            }\n        }\n    }\n",
-                        "variables":{"id": document.location.pathname.replaceAll('?', '/').split('/')[2]}
-                    })
-                })).json()).data.userstatus.status
-                username = document.querySelectorAll("strong.css-sbn8jm.e1e59sjh3")[0].children[0].textContent
-                if (user_info.project > 0){
-                    username = " (" + (await (await fetch("https://playentry.org/graphql", {
-                        "method": "POST",
-                        "headers":{
-                            "Content-Type": "application/json",
-                            "x-client-type": "Client",
-                            "CSRF-Token": csrf,
-                            "x-token": xtoken
-                        },
-                        "body": JSON.stringify({
-                            "query":"\n    query SELECT_USER_PROJECTS(\n        \n    $user: String!\n    $query: String\n    $categoryCode: String\n    $groupId: ID\n    $pageParam: PageParam\n    $isOpen: Boolean\n    $except: [ID]\n    $searchAfter: JSON\n    $searchType: String\n    $term: String\n\n    ) {\n        userProjectList(\n            \n    user: $user\n    query: $query\n    categoryCode: $categoryCode\n    groupId: $groupId\n    pageParam: $pageParam\n    isOpen: $isOpen\n    except: $except\n    searchAfter: $searchAfter\n    searchType: $searchType\n    term: $term\n\n    ) {\n            total\n            list {\n                \n    id\n    name\n    user {\n        id\n        username\n        nickname\n        profileImage {\n            id\n            filename\n            imageType\n        }\n    }\n    thumb\n    isopen\n    isPracticalCourse\n    category\n    categoryCode\n    created\n    updated\n    special\n    isForLecture\n    isForStudy\n    isForSubmit\n    hashId\n    complexity\n    staffPicked\n    ranked\n    visit\n    likeCnt\n    comment\n    showComment\n\n            }\n            searchAfter\n        }\n    }\n",
-                            "variables":{"searchType":"scroll","user":document.location.pathname.replaceAll('?', '/').split('/')[2],"term":"all","pageParam":{"display":1,"sort":"created"}}
-                        })
-                    })).json()).data.userProjectList.list[0].user.username + ")"
-                }else if (user_info.community.qna > 0){
-                    username = " (" + (await (await fetch("https://playentry.org/graphql", {
-                        "method": "POST",
-                        "headers":{
-                            "Content-Type": "application/json",
-                            "x-client-type": "Client",
-                            "CSRF-Token": csrf,
-                            "x-token": xtoken
-                        },
-                        "body": JSON.stringify({
-                            "query":"\n    query SELECT_QNA_LIST(\n    $pageParam: PageParam\n    $query: String\n    $user: String\n    $category: String\n    $term: String\n    $prefix: String\n    $progress: String\n    $discussType: String\n    $searchType: String\n    $searchAfter: JSON\n){\n        discussList(\n    pageParam: $pageParam\n    query: $query\n    user: $user\n    category: $category\n    term: $term\n    prefix: $prefix\n    progress: $progress\n    discussType: $discussType\n    searchType: $searchType\n    searchAfter: $searchAfter\n) {\n            total\n            list {\n                \n    id\n    title\n    created\n    commentsLength\n    likesLength\n    visit\n    user {\n        \n    id\n    nickname\n    username\n    profileImage {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    status {\n        following\n        follower\n    }\n    description\n    role\n    mark {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n \n    }\n\n    }\n    bestComment {\n        content\n    }\n    thumbnail\n\n            }\n            searchAfter\n        }\n    }\n",
-                            "variables":{"category":"qna","searchType":"scroll","user":document.location.pathname.replaceAll('?', '/').split('/')[2],"term":"all","pageParam":{"display":1,"sort":"created"}}
-                        })
-                    })).json()).data.discussList.list[0].user.username + ")"
-                }else if (user_info.community.tips > 0){
-                    username = " (" + (await (await fetch("https://playentry.org/graphql", {
-                        "method": "POST",
-                        "headers":{
-                            "Content-Type": "application/json",
-                            "x-client-type": "Client",
-                            "CSRF-Token": csrf,
-                            "x-token": xtoken
-                        },
-                        "body": JSON.stringify({
-                            "query":"\n    query SELECT_DISCUSS_LIST(\n    $pageParam: PageParam\n    $query: String\n    $user: String\n    $category: String\n    $term: String\n    $prefix: String\n    $progress: String\n    $discussType: String\n    $searchType: String\n    $searchAfter: JSON\n){\n        discussList(\n    pageParam: $pageParam\n    query: $query\n    user: $user\n    category: $category\n    term: $term\n    prefix: $prefix\n    progress: $progress\n    discussType: $discussType\n    searchType: $searchType\n    searchAfter: $searchAfter\n) {\n            total\n            list {\n                \n    id\n    title\n    content\n    seContent\n    created\n    commentsLength\n    likesLength\n    visit\n    category\n    prefix\n    groupNotice\n    user {\n        \n    id\n    nickname\n    username\n    profileImage {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    status {\n        following\n        follower\n    }\n    description\n    role\n    mark {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n \n    }\n\n    }\n    images {\n        filename\n        imageUrl\n    }\n    sticker {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    progress\n    thumbnail\n    reply\n    bestComment {\n        \n    id\n    user {\n        \n    id\n    nickname\n    username\n    profileImage {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    status {\n        following\n        follower\n    }\n    description\n    role\n    mark {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n \n    }\n\n    }\n    content\n    created\n    removed\n    blamed\n    blamedBy\n    commentsLength\n    likesLength\n    isLike\n    hide\n    image {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    sticker {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n\n    }\n    blamed\n    description1\n    description2\n    description3\n\n            }\n            searchAfter\n        }\n    }\n",
-                            "variables":{"category":"tips", "searchType":"scroll","user":document.location.pathname.replaceAll('?', '/').split('/')[2],"term":"all","pageParam":{"display":1,"sort":"created"}}
-                        })
-                    })).json()).data.discussList.list[0].user.username + ")"
-                }else if(user_info.community.free > 0){
-                    username = " (" + (await (await fetch("https://playentry.org/graphql", {
-                        "method": "POST",
-                        "headers":{
-                            "Content-Type": "application/json",
-                            "x-client-type": "Client",
-                            "CSRF-Token": csrf,
-                            "x-token": xtoken
-                        },
-                        "body": JSON.stringify({
-                            "query":"\n    query SELECT_ENTRYSTORY(\n    $pageParam: PageParam\n    $query: String\n    $user: String\n    $category: String\n    $term: String\n    $prefix: String\n    $progress: String\n    $discussType: String\n    $searchType: String\n    $searchAfter: JSON\n){\n        discussList(\n    pageParam: $pageParam\n    query: $query\n    user: $user\n    category: $category\n    term: $term\n    prefix: $prefix\n    progress: $progress\n    discussType: $discussType\n    searchType: $searchType\n    searchAfter: $searchAfter\n) {\n            total\n            list {\n                \n\tid\n    content\n    created\n    commentsLength\n    likesLength\n    user {\n        \n    id\n    nickname\n    username\n    profileImage {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    status {\n        following\n        follower\n    }\n    description\n    role\n    mark {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n \n    }\n\n    }\n    image {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    sticker {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    isLike\n\n            }\n            searchAfter\n        }\n    }\n",
-                            "variables":{"category":"free", "searchType":"scroll","user":document.location.pathname.replaceAll('?', '/').split('/')[2],"term":"all","pageParam":{"display":1,"sort":"created"}}
-                        })
-                    })).json()).data.discussList.list[0].user.username + ")"
-                }
-                if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].childElementCount > 2){
-                    document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].removeChild(info)
-                    info.removeChild(project)
-                    info.removeChild(qna)
-                    info.removeChild(tips)
-                    info.removeChild(free)
-                    project.removeChild(p)
-                    qna.removeChild(q)
-                    tips.removeChild(t)
-                    free.removeChild(f)
-                }else {
-                    project = document.createElement('span')
-                    p = document.createElement('em')
-                    qna = document.createElement('span')
-                    q = document.createElement('em')
-                    tips = document.createElement('span')
-                    t = document.createElement('em')
-                    free = document.createElement('span')
-                    f = document.createElement('em')
-                }
-                document.querySelectorAll("strong.css-sbn8jm.e1e59sjh3")[0].lastChild.textContent = username
-                projects = user_info.projectAll - user_info.project
-                communities = user_info.community
-                p.style = 'color: rgb(22, 216, 163)'
-                project.textContent = '비공개 작품 '
-                p.textContent = String(projects)
-                project.appendChild(p)
-                q.style = 'color: rgb(22, 216, 163)'
-                qna.textContent = '묻고 답하기 '
-                q.textContent = String(communities.qna)
-                qna.appendChild(q)
-                t.style = 'color: rgb(22, 216, 163)'
-                tips.textContent = '노하우 팁 '
-                t.textContent = String(communities.tips)
-                tips.appendChild(t)
-                f.style = 'color: rgb(22, 216, 163)'
-                free.textContent = '엔트리 이야기 '
-                f.textContent = String(communities.free)
-                free.appendChild(f)
-                info = document.createElement('span')
-                info.appendChild(project)
-                info.appendChild(qna)
-                info.appendChild(tips)
-                info.appendChild(free)
-                if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].childElementCount == 2){
-                    document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].children[0].firstElementChild.style.color = 'rgb(22, 216, 163)'
-                    document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].children[1].firstElementChild.style.color = 'rgb(22, 216, 163)'
-                    document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].appendChild(info)
-                    userprofile = document.location.pathname.replaceAll('?', '/').split('/')[2]
-                }
-            }
-        }else{
-            userprofile = ''
-        }
-    }, 10)
+    // setInterval(async function(){
+    //     if (document.location.pathname.split('/')[1] == 'profile'){
+    //         if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1').length > 0 && userprofile != document.location.pathname.replaceAll('?', '/').split('/')[2]){
+    //             replay = document.location.pathname.split('/')[2]
+    //             var getIdeal = function(){
+    //                 var next_data = document.getElementById("__NEXT_DATA__");
+    //                 var nj = JSON.parse(next_data.innerText);
+    //                 return {csrf: nj.props.initialProps.csrfToken, xtoken: nj.props.initialState.common.user.xToken};
+    //             };
+    //             idl = getIdeal();
+    //             csrf = idl.csrf;
+    //             xtoken = idl.xtoken
+    //             user_info = (await (await fetch("https://playentry.org/graphql", {
+    //                 "method": "POST",
+    //                 "headers":{
+    //                     "Content-Type": "application/json",
+    //                     "x-client-type": "Client",
+    //                     "CSRF-Token": csrf,
+    //                     "x-token": xtoken
+    //                 },
+    //                 "body": JSON.stringify({
+    //                     "query":"\n    query FIND_USERSTATUS_BY_USERNAME($id: String) {\n        userstatus(id: $id) {\n            id\n            nickname\n            username\n            description\n            shortUrl\n            profileImage {\n                \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n            }\n            coverImage {\n                \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n            }\n            role\n            mark {\n                \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n            }\n            studentTerm\n            status {\n                project\n                projectAll\n                study\n                studyAll\n                community {\n                    qna\n                    tips\n                    free\n                }\n                following\n                follower\n                bookmark {\n                    project\n                    study\n                }\n                userStatus\n            }\n        }\n    }\n",
+    //                     "variables":{"id": document.location.pathname.replaceAll('?', '/').split('/')[2]}
+    //                 })
+    //             })).json()).data.userstatus.status
+    //             username = document.querySelectorAll("strong.css-sbn8jm.e1e59sjh3")[0].children[0].textContent
+    //             if (user_info.project > 0){
+    //                 username = " (" + (await (await fetch("https://playentry.org/graphql", {
+    //                     "method": "POST",
+    //                     "headers":{
+    //                         "Content-Type": "application/json",
+    //                         "x-client-type": "Client",
+    //                         "CSRF-Token": csrf,
+    //                         "x-token": xtoken
+    //                     },
+    //                     "body": JSON.stringify({
+    //                         "query":"\n    query SELECT_USER_PROJECTS(\n        \n    $user: String!\n    $query: String\n    $categoryCode: String\n    $groupId: ID\n    $pageParam: PageParam\n    $isOpen: Boolean\n    $except: [ID]\n    $searchAfter: JSON\n    $searchType: String\n    $term: String\n\n    ) {\n        userProjectList(\n            \n    user: $user\n    query: $query\n    categoryCode: $categoryCode\n    groupId: $groupId\n    pageParam: $pageParam\n    isOpen: $isOpen\n    except: $except\n    searchAfter: $searchAfter\n    searchType: $searchType\n    term: $term\n\n    ) {\n            total\n            list {\n                \n    id\n    name\n    user {\n        id\n        username\n        nickname\n        profileImage {\n            id\n            filename\n            imageType\n        }\n    }\n    thumb\n    isopen\n    isPracticalCourse\n    category\n    categoryCode\n    created\n    updated\n    special\n    isForLecture\n    isForStudy\n    isForSubmit\n    hashId\n    complexity\n    staffPicked\n    ranked\n    visit\n    likeCnt\n    comment\n    showComment\n\n            }\n            searchAfter\n        }\n    }\n",
+    //                         "variables":{"searchType":"scroll","user":document.location.pathname.replaceAll('?', '/').split('/')[2],"term":"all","pageParam":{"display":1,"sort":"created"}}
+    //                     })
+    //                 })).json()).data.userProjectList.list[0].user.username + ")"
+    //             }else if (user_info.community.qna > 0){
+    //                 username = " (" + (await (await fetch("https://playentry.org/graphql", {
+    //                     "method": "POST",
+    //                     "headers":{
+    //                         "Content-Type": "application/json",
+    //                         "x-client-type": "Client",
+    //                         "CSRF-Token": csrf,
+    //                         "x-token": xtoken
+    //                     },
+    //                     "body": JSON.stringify({
+    //                         "query":"\n    query SELECT_QNA_LIST(\n    $pageParam: PageParam\n    $query: String\n    $user: String\n    $category: String\n    $term: String\n    $prefix: String\n    $progress: String\n    $discussType: String\n    $searchType: String\n    $searchAfter: JSON\n){\n        discussList(\n    pageParam: $pageParam\n    query: $query\n    user: $user\n    category: $category\n    term: $term\n    prefix: $prefix\n    progress: $progress\n    discussType: $discussType\n    searchType: $searchType\n    searchAfter: $searchAfter\n) {\n            total\n            list {\n                \n    id\n    title\n    created\n    commentsLength\n    likesLength\n    visit\n    user {\n        \n    id\n    nickname\n    username\n    profileImage {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    status {\n        following\n        follower\n    }\n    description\n    role\n    mark {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n \n    }\n\n    }\n    bestComment {\n        content\n    }\n    thumbnail\n\n            }\n            searchAfter\n        }\n    }\n",
+    //                         "variables":{"category":"qna","searchType":"scroll","user":document.location.pathname.replaceAll('?', '/').split('/')[2],"term":"all","pageParam":{"display":1,"sort":"created"}}
+    //                     })
+    //                 })).json()).data.discussList.list[0].user.username + ")"
+    //             }else if (user_info.community.tips > 0){
+    //                 username = " (" + (await (await fetch("https://playentry.org/graphql", {
+    //                     "method": "POST",
+    //                     "headers":{
+    //                         "Content-Type": "application/json",
+    //                         "x-client-type": "Client",
+    //                         "CSRF-Token": csrf,
+    //                         "x-token": xtoken
+    //                     },
+    //                     "body": JSON.stringify({
+    //                         "query":"\n    query SELECT_DISCUSS_LIST(\n    $pageParam: PageParam\n    $query: String\n    $user: String\n    $category: String\n    $term: String\n    $prefix: String\n    $progress: String\n    $discussType: String\n    $searchType: String\n    $searchAfter: JSON\n){\n        discussList(\n    pageParam: $pageParam\n    query: $query\n    user: $user\n    category: $category\n    term: $term\n    prefix: $prefix\n    progress: $progress\n    discussType: $discussType\n    searchType: $searchType\n    searchAfter: $searchAfter\n) {\n            total\n            list {\n                \n    id\n    title\n    content\n    seContent\n    created\n    commentsLength\n    likesLength\n    visit\n    category\n    prefix\n    groupNotice\n    user {\n        \n    id\n    nickname\n    username\n    profileImage {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    status {\n        following\n        follower\n    }\n    description\n    role\n    mark {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n \n    }\n\n    }\n    images {\n        filename\n        imageUrl\n    }\n    sticker {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    progress\n    thumbnail\n    reply\n    bestComment {\n        \n    id\n    user {\n        \n    id\n    nickname\n    username\n    profileImage {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    status {\n        following\n        follower\n    }\n    description\n    role\n    mark {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n \n    }\n\n    }\n    content\n    created\n    removed\n    blamed\n    blamedBy\n    commentsLength\n    likesLength\n    isLike\n    hide\n    image {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    sticker {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n\n    }\n    blamed\n    description1\n    description2\n    description3\n\n            }\n            searchAfter\n        }\n    }\n",
+    //                         "variables":{"category":"tips", "searchType":"scroll","user":document.location.pathname.replaceAll('?', '/').split('/')[2],"term":"all","pageParam":{"display":1,"sort":"created"}}
+    //                     })
+    //                 })).json()).data.discussList.list[0].user.username + ")"
+    //             }else if(user_info.community.free > 0){
+    //                 username = " (" + (await (await fetch("https://playentry.org/graphql", {
+    //                     "method": "POST",
+    //                     "headers":{
+    //                         "Content-Type": "application/json",
+    //                         "x-client-type": "Client",
+    //                         "CSRF-Token": csrf,
+    //                         "x-token": xtoken
+    //                     },
+    //                     "body": JSON.stringify({
+    //                         "query":"\n    query SELECT_ENTRYSTORY(\n    $pageParam: PageParam\n    $query: String\n    $user: String\n    $category: String\n    $term: String\n    $prefix: String\n    $progress: String\n    $discussType: String\n    $searchType: String\n    $searchAfter: JSON\n){\n        discussList(\n    pageParam: $pageParam\n    query: $query\n    user: $user\n    category: $category\n    term: $term\n    prefix: $prefix\n    progress: $progress\n    discussType: $discussType\n    searchType: $searchType\n    searchAfter: $searchAfter\n) {\n            total\n            list {\n                \n\tid\n    content\n    created\n    commentsLength\n    likesLength\n    user {\n        \n    id\n    nickname\n    username\n    profileImage {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    status {\n        following\n        follower\n    }\n    description\n    role\n    mark {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n \n    }\n\n    }\n    image {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    sticker {\n        \n    id\n    name\n    label {\n        \n    ko\n    en\n    ja\n    vn\n\n    }\n    filename\n    imageType\n    dimension {\n        \n    width\n    height\n\n    }\n    trimmed {\n        filename\n        width\n        height\n    }\n\n    }\n    isLike\n\n            }\n            searchAfter\n        }\n    }\n",
+    //                         "variables":{"category":"free", "searchType":"scroll","user":document.location.pathname.replaceAll('?', '/').split('/')[2],"term":"all","pageParam":{"display":1,"sort":"created"}}
+    //                     })
+    //                 })).json()).data.discussList.list[0].user.username + ")"
+    //             }
+    //             if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].childElementCount > 2){
+    //                 document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].removeChild(info)
+    //                 info.removeChild(project)
+    //                 info.removeChild(qna)
+    //                 info.removeChild(tips)
+    //                 info.removeChild(free)
+    //                 project.removeChild(p)
+    //                 qna.removeChild(q)
+    //                 tips.removeChild(t)
+    //                 free.removeChild(f)
+    //             }else {
+    //                 project = document.createElement('span')
+    //                 p = document.createElement('em')
+    //                 qna = document.createElement('span')
+    //                 q = document.createElement('em')
+    //                 tips = document.createElement('span')
+    //                 t = document.createElement('em')
+    //                 free = document.createElement('span')
+    //                 f = document.createElement('em')
+    //             }
+    //             document.querySelectorAll("strong.css-sbn8jm.e1e59sjh3")[0].lastChild.textContent = username
+    //             projects = user_info.projectAll - user_info.project
+    //             communities = user_info.community
+    //             p.style = 'color: rgb(22, 216, 163)'
+    //             project.textContent = '비공개 작품 '
+    //             p.textContent = String(projects)
+    //             project.appendChild(p)
+    //             q.style = 'color: rgb(22, 216, 163)'
+    //             qna.textContent = '묻고 답하기 '
+    //             q.textContent = String(communities.qna)
+    //             qna.appendChild(q)
+    //             t.style = 'color: rgb(22, 216, 163)'
+    //             tips.textContent = '노하우 팁 '
+    //             t.textContent = String(communities.tips)
+    //             tips.appendChild(t)
+    //             f.style = 'color: rgb(22, 216, 163)'
+    //             free.textContent = '엔트리 이야기 '
+    //             f.textContent = String(communities.free)
+    //             free.appendChild(f)
+    //             info = document.createElement('span')
+    //             info.appendChild(project)
+    //             info.appendChild(qna)
+    //             info.appendChild(tips)
+    //             info.appendChild(free)
+    //             if (document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].childElementCount == 2){
+    //                 document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].children[0].firstElementChild.style.color = 'rgb(22, 216, 163)'
+    //                 document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].children[1].firstElementChild.style.color = 'rgb(22, 216, 163)'
+    //                 document.querySelectorAll('div.css-s7u0jm.e1e59sjh1')[0].appendChild(info)
+    //                 userprofile = document.location.pathname.replaceAll('?', '/').split('/')[2]
+    //             }
+    //         }
+    //     }else{
+    //         userprofile = ''
+    //     }
+    // }, 10)
     setInterval(()=> ImageView(), 10)
     finded = ''
     usernick = ''
