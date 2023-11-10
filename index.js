@@ -6,15 +6,17 @@ window.addEventListener("load", () => {
             for (let i = start; i < contents.length; i++){
                 start = 0
                 for (let j = 0; j < contents[i].children.length; j++){
-                    if (contents[i].children[j].outerHTML.replace('/𝕡layentry.org/', '/playentry.org/').replaceAll('%75', 'u').replaceAll('//uploads/', '/uploads/').indexOf('<a target="_blank" href="https://playentry.org/redirect/path=../../?external=https://playentry.org/uploads/') == 0 && contents[i].children[j].outerHTML.indexOf('<img ') == -1){
+                    if (contents[i].children[j].outerHTML.replace('/𝕡layentry.org/', '/playentry.org/').replaceAll('%75', 'u').replaceAll('/Uploads/', '/uploads/').replaceAll('//uploads/', '/uploads/').indexOf('<a target="_blank" href="https://playentry.org/redirect/path=../../?external=https://playentry.org/uploads/') == 0 && contents[i].children[j].outerHTML.indexOf('<img ') == -1){
                         if (contents[i].children[j].outerHTML.indexOf('/signout') >= 0){
                             contents[i].children[j].outerHTML = contents[i].children[j].outerHTML.replaceAll('signout', '')
                         }else{
-                            document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML = '<br><img width=300px; height=auto; src=' + document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML.replaceAll('https://playentry.org/redirect/path=../../?external=', '') +'> </img></br>'
-                            contents[i].children[j].outerHTML = contents[i].children[j].outerHTML.replaceAll('https://playentry.org/redirect/path=../../?external=https://playentry.org/uploads/', 'https://playentry.org/uploads/')
+                            document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].innerHTML = document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].innerHTML.replaceAll('/Uploads/', '/uploads/')
+                            document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML = '<br><img width=300px; height=auto; src=' + document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML.replaceAll('/Uploads/', '/uploads/').replaceAll('https://playentry.org/redirect/path=../../?external=', '') +'> </img></br>'
+                            contents[i].children[j].outerHTML = contents[i].children[j].outerHTML.replaceAll('/Uploads/', '/uploads/').replaceAll('https://playentry.org/redirect/path=../../?external=https://playentry.org/uploads/', 'https://playentry.org/uploads/')
                         }
-                    }else if (contents[i].children[j].outerHTML.replace('/𝕡layentry.org/', '/playentry.org/').replaceAll('%75', 'u').replaceAll('//uploads/', '/uploads/').indexOf('<a target="_blank" href="https://playentry.org/uploads/') == 0 && contents[i].children[j].outerHTML.indexOf('<img ') == -1){
-                        document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML = '<br><img width=300px; height=auto; src=' + document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML.replaceAll('https://playentry.org/redirect/path=../../?external=', '') +'> </img></br>'
+                    }else if (contents[i].children[j].outerHTML.replace('/𝕡layentry.org/', '/playentry.org/').replaceAll('%75', 'u').replaceAll('/Uploads/', '/uploads/').replaceAll('//uploads/', '/uploads/').indexOf('<a target="_blank" href="https://playentry.org/uploads/') == 0 && contents[i].children[j].outerHTML.indexOf('<img ') == -1){
+                        document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].innerHTML = document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].innerHTML.replaceAll('/Uploads/', '/uploads/')
+                        document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML = '<br><img width=300px; height=auto; src=' + document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].children[j].innerHTML.replaceAll('/Uploads/', '/uploads/').replaceAll('https://playentry.org/redirect/path=../../?external=', '') +'> </img></br>'
                     }
                 }
                 if (document.querySelectorAll('div.css-sy8ihv.e1i41bku1')[i].outerHTML.replaceAll('&lt;br /&gt;', '\n').indexOf('\n') >= 0){
@@ -208,13 +210,13 @@ window.addEventListener("load", () => {
                                 if(e.target.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes.length > 0){
                                     e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.firstChild.firstChild.remove()
                                 }
-                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
-                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].data = cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
-                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].value = cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
+                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].data = cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
+                                e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].value = cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].firstChild.children[0].scrollHeight)+'px'
                     }
                     }else if(document.location.href.includes("/group/community/")){
-                        if (false) {
+                        if (confirm('이모티콘 형식으로 올리시겠습니까? 취소시 사진형식으로 올라갑니다.')) {
                             var crt = await (async function(cont, id){
                                 var crt = await fetch("https://playentry.org/graphql", {
                                     "headers": {
@@ -245,13 +247,13 @@ window.addEventListener("load", () => {
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes[0])
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].scrollHeight)+'px'
                             }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                            e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                             e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes[0].data
                             e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].scrollHeight)+'px'
                             
                         }
                     }else {
-                        if (false) {
+                        if (confirm('이모티콘 형식으로 올리시겠습니까? 취소시 사진형식으로 올라갑니다.')) {
                             var crt = await (async function(cont, id){
                                 var crt = await fetch("https://playentry.org/graphql", {
                                     "headers": {
@@ -280,7 +282,7 @@ window.addEventListener("load", () => {
                             if(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes.length > 0){
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes[0])
                             }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                            e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].append(new Text(cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                             e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].childNodes[0].data
                             e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[1].firstChild.children[0].scrollHeight)+'px'
                         }
@@ -388,7 +390,7 @@ window.addEventListener("load", () => {
                     var idl = getIdeal();
                     var csrf = idl.csrf, xtoken = idl.xtoken;
                     if (document.location.href.indexOf("entrystory") >= 0) {
-                        if (false) {
+                        if (confirm('이모티콘 형식으로 올리시겠습니까? 취소시 사진형식으로 올라갑니다.')) {
                         var crt = await (async function(cont, id){
                             var crt = await fetch("https://playentry.org/graphql", {
                                 "headers": {
@@ -415,12 +417,12 @@ window.addEventListener("load", () => {
                             if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                             }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                         }
                     }else if(document.location.href.includes("/group/community/")){
-                        if (false) {
+                        if (confirm('이모티콘 형식으로 올리시겠습니까? 취소시 사진형식으로 올라갑니다.')) {
                             var crt = await (async function(cont, id){
                                 var crt = await fetch("https://playentry.org/graphql", {
                                     "headers": {
@@ -450,12 +452,12 @@ window.addEventListener("load", () => {
                             if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                                 e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].remove(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                             }
-                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                            e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].append(new Text(cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                         }
                     }else {
-                        if (false) {
+                        if (confirm('이모티콘 형식으로 올리시겠습니까? 취소시 사진형식으로 올라갑니다.')) {
                             var crt = await (async function(cont, id){
                                 var crt = await fetch("https://playentry.org/graphql", {
                                     "headers": {
@@ -484,7 +486,7 @@ window.addEventListener("load", () => {
                             // if(e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].childNodes.length > 0){
                             //     e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].remove(e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].childNodes[0])
                             // }
-                            e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].value = cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
+                            e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].value = cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype
                             e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].style.height = String(e.target.parentElement.parentElement.parentElement.children[0].childNodes[0].scrollHeight)+'px'
                         }
                     }
@@ -587,7 +589,7 @@ window.addEventListener("load", () => {
                         if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].removeChild(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                         }
-                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                     }else if(document.location.href.includes("/group/community/")){
@@ -595,7 +597,7 @@ window.addEventListener("load", () => {
                         if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].removeChild(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                         }
-                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                     }else {
@@ -603,7 +605,7 @@ window.addEventListener("load", () => {
                         if(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes.length > 0){
                             e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].removeChild(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0])
                         }
-                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org//uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
+                        e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].appendChild(new Text(cont + " https://playentry.org/Uploads/"+filename.substring(0, 2)+"/"+filename.substring(2, 4)+"/"+filename+filetype))
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].value = e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].childNodes[0].data
                         e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].style.height = String(e.target.parentElement.parentElement.parentElement.parentElement.children[0].firstChild.children[0].scrollHeight)+'px'
                     }
